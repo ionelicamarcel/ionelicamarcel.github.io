@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
+<html>
+
+<body>
+    Hi There this is some trail running.
+
+    <div id="decoy-svg-container">
+    <svg id="decoy_viz" width="0" height="0"></svg>
+    </div>
+
+    <div id="svg-container">
+    <svg id="viz" width="720" height="405">
+    <rect width="300" height="100" fill="rgb(0,0,255)" /></svg>
+    </div>
+
+<script>
+
+    var width = 720;
+    var height = 405;
+
+</script>
+
+<script>
+var data = 
+[
+    10,
+    5,
+    5,
+    8,
+    9,
+    3,
+    2,
+    99,
+    99
+]; 
+
+function updateViz(data)
+{
+  var nfr = d3.select("#viz").data(data);
+
+  // "x" = index of the datum * 20
+  // "y" = (global variable height / 2.0) - (5.0 * the datum value)
+  // "tokenid" = (the datum value) * (the index of the datum) * 64
+
+  nfr.selectAll("rect").data(data).attr("fill", "steelblue ").attr("width",15).attr("height",function(d) { return 10*d;}).attr("x",function(d,i) { return 20*i; }).attr("y",function(d) { return (height / 2.0) - (d * 5.0); }).attr("tokenid", function(d,i){return (d * i) * 64});
+  nfr.selectAll("rect").data(data).enter().append("rect").attr("fill", "steelblue ").attr("width",15).attr("height",function(d) { return 10*d;}).attr("x",function(d,i) { return 20*i; }).attr("y",function(d) { return (height / 2.0) - (d * 5.0); }).attr("tokenid", function(d,i){return (d * i) * 64});
+  nfr.selectAll("rect").data(data).exit().remove();
+}
+
+updateViz(data)
+</script>
+
+</body>
+
+</html>
+
+
+
